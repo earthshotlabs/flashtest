@@ -101,9 +101,7 @@ const runBot = async () => {
     web3.eth.sendSignedTransaction(signedTx5.rawTransaction)
     .on('transactionHash', function(hash){ console.log(hash); })
 
-   // const balance = await web3.eth.getBalance(contract3Address);
-   // console.log(balance); 
-    
+     
          // Check if all transactions were successful or if there was an error
          const receipt = await web3.eth.getTransactionReceipt(signedTx.transactionHash);
          const receipt2 = await web3.eth.getTransactionReceipt(signedTx2.transactionHash);
@@ -117,69 +115,9 @@ const runBot = async () => {
         } catch (error) {
             console.log(error);
         } 
-          // If there was an error, print the error message and exit the program 
-         // if (/*receipt && !receipt2 && /*/ !receipt3 && !receipt4 && !receipt5) {  // Check if all transactions were successful or if there was an error 
-          //   console .log("Error: " + JSON .stringify (receipt3));
- 
+          
      
           
         
 }   
      runBot();
-
-
-        /*/ Unstake sOHM (sTIME) from the TimeStaking contract to receive TIME 
-    const unstakeData = web3.eth.abi.encodeFunctionCall({
-        name: 'unstake',  // function name to call in the contract, defined in the ABI above 
-        type: 'function', // function type defined in the ABI above 
-        inputs:[{          // input parameters for this function call, defined in the ABI above 
-
-            type:'uint256',
-            name:'_amount'
-        },{
-
-            type:'bool',
-            name:'_trigger'
-        }]}, [amountToStake, true]);
-
-    // Claim sOHM (sTIME) from warmup
-    const claimData = web3.eth.abi.encodeFunctionCall({
-        name: 'claim',  // function name to call in the contract, defined in the ABI above 
-        type: 'function', // function type defined in the ABI above 
-        inputs:[{          // input parameters for this function call, defined in the ABI above
-            type:'address',
-            name:'_recipient'
-        }]}, [recipientAddress]);
-
-    // Withdraw to wallet
-    const withdrawData = web3.eth.abi.encodeFunctionCall({
-        name: 'withdraw',  // function name to call in the contract, defined in the ABI above 
-        type: 'function', // function type defined in the ABI above 
-        inputs:[{          // input parameters for this function call, defined in the ABI above
-            type:'uint256',
-            name:'_amount'
-        }]}, [amountToStake]);
-
-    const txData = approveData + stakeData + unstakeData + claimData + withdrawData;
-       
- 
-    const txCount = 
-   
-
-    const txObject = {
-      nonce: web3.utils.toHex(txCount),
-      gasLimit: web3.utils.toHex(250000), // Raise the gas limit to a much higher amount than the default stipend of 2300 gas
-      gasPrice: web3.utils.toHex(web3.utils.toWei('40', 'gwei')),  
-      data: txData,   // This encodes all of our functions into one transaction data payload 
-      from: account,   // From address must be unlocked account on node you are using to send transaction 
-      to: contractAddress   // Contract address that will receive this transaction with its encoded data payload 
-    };
-
-    const tx = new Tx(txObject);
-    tx.sign(privateKey);
-    const serializedTx = tx.serialize();
-    const rawTx = '0x' + serializedTx;
-    const receipt = await web3.eth.sendSignedTransaction(rawTx);
-    console.log(receipt);
-}
-/*/
